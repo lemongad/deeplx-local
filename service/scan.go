@@ -72,7 +72,7 @@ type Quake360ScanService struct {
 }
 
 func NewQuake360ScanService(client *req.Client, apiKey string) ScanService {
-	return &Quake360ScanService{client: client, apiKey: apiKey, searchParam: "response:\"DeepL Free API, Developed by sjlleo and missuo. Go to /translate with POST. http://github.com/OwO-Network/DeepLX\" AND country: \"China\""}
+	return &Quake360ScanService{client: client, apiKey: apiKey, searchParam: "response:\"Welcome to deeplx-pro\" AND country: \"China\""}
 }
 
 func (q *Quake360ScanService) Scan() []string {

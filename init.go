@@ -18,19 +18,42 @@ import (
 	"strings"
 	"syscall"
 	"time"
+	"flag"
 )
 
 var (
-	client   = req.NewClient().SetTimeout(2 * time.Second)
+	client      = req.NewClient().SetTimeout(2 * time.Second)
 	validReq = domain.TranslateRequest{
 		Text:       "I love you",
 		SourceLang: "EN",
 		TargetLang: "ZH",
 	}
-	hunterKey   = os.Getenv("hunter_api_key")
-	quakeKey    = os.Getenv("360_api_key")
+	hunterKey   string // 直接定义为字符串变量
+	quakeKey    string // 直接定义为字符串变量
 	scanService service.ScanService
 )
+
+func init() {
+	// 设定命令行参数
+	hunterKeyFlag := flag.String("hunter_api_key", "", "Hunter API key")
+	quakeKeyFlag := flag.String("360_api_key", "", "360 API key")
+
+	// 解析命令行参数
+	flag.Parse()
+
+	// 如果命令行参数提供了API Key，则优先使用命令行参数的值。
+	// 否则，尝试从环境变量中获取。
+	if *hunterKeyFlag != "" {
+		hunterKey = *hunterKeyFlag
+	} else {
+		hunterKey = os.Getenv("hunter_api_key")
+	}
+	if *quakeKeyFlag != "" {
+		quakeKey = *quakeKeyFlag
+	} else {
+		quakeKey = os.Getenv("360_api_key")
+	}
+}
 
 // getValidURLs 从文件中读取并处理URL
 func getValidURLs() []string {
