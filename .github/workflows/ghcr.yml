@@ -10,7 +10,7 @@ on:
 env:
   REGISTRY: ghcr.io
   OWNER: ${{ github.repository_owner }}
-  IMAGE_NAME: ${{ github.repository_owner }}/deeplx
+  IMAGE_NAME: ${{ github.repository_owner }}/deeplxpro
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -34,7 +34,6 @@ jobs:
         with:
           platforms: |
             linux/amd64
-            linux/arm64
           context: .
           push: true
           tags: |
